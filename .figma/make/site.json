@@ -1,1 +1,10 @@
-{}
+{
+  "description": "Showcase professional projects, skills, and experience in a polished portfolio that helps creatives and professionals attract clients and career opportunities.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
