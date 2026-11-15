@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { AndroidLab } from "./components/AndroidLab";
 import { BootScreen } from "./components/BootScreen";
+import { GithubSection } from "./components/GithubSection";
 import { ProjectArtwork } from "./components/ProjectArtwork";
 import { Reveal } from "./components/Reveal";
 import { ScrambleText, Typewriter } from "./components/TextEffects";
@@ -9,12 +10,13 @@ import { EMAIL, GITHUB, marquee, projects, roles, services, stack, type Category
 
 const NAV = [
   ["01", "work", "#work"],
-  ["02", "about", "#about"],
-  ["03", "android", "#android"],
-  ["04", "contact", "#contact"],
+  ["02", "github", "#github"],
+  ["03", "about", "#about"],
+  ["04", "android", "#android"],
+  ["05", "contact", "#contact"],
 ] as const;
 
-const FILTERS = ["All", "Web", "Software", "Games"] as const;
+const FILTERS = ["All", "Games", "Web", "Software"] as const;
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <svg
@@ -166,8 +168,8 @@ export default function App() {
               <Typewriter words={roles} start={booted} />
             </p>
             <p className="hero-text hero-fade" style={{ "--d": "600ms" } as CSSProperties}>
-              I design and build fast web apps, thoughtful interfaces, and playful games, from the
-              first pixel to production.
+              I design and build web apps, 3D browser games, and tools for Android, from the first
+              pixel to production.
             </p>
             <div className="hero-actions hero-fade" style={{ "--d": "750ms" } as CSSProperties}>
               <a className="btn btn-primary" href="#work">
@@ -215,8 +217,8 @@ export default function App() {
             </Reveal>
             <Reveal delay={120}>
               <p>
-                A mix of web apps, software tools, and games. Each one built with care for how it
-                looks, feels, and performs.
+                3D browser games, web apps, and desktop tools from my GitHub. Most are live, so you
+                can play or try them right now.
               </p>
             </Reveal>
           </div>
@@ -239,14 +241,7 @@ export default function App() {
           <div className="projects-grid">
             {visibleProjects.map((project, index) => (
               <Reveal key={`${filter}-${project.title}`} delay={index * 90}>
-                <a
-                  className="project-card"
-                  href={GITHUB}
-                  target="_blank"
-                  rel="noreferrer"
-                  onPointerMove={trackPointer}
-                  aria-label={`${project.title}, view on GitHub`}
-                >
+                <article className="project-card" onPointerMove={trackPointer}>
                   <div className="project-visual">
                     <ProjectArtwork type={project.visual} />
                     <span className="project-number">{project.number}</span>
@@ -254,7 +249,16 @@ export default function App() {
                   <div className="project-info">
                     <div>
                       <span className="project-category">{project.category}</span>
-                      <h3>{project.title}</h3>
+                      <h3>
+                        <a
+                          className="card-link"
+                          href={project.live ?? project.repo}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {project.title}
+                        </a>
+                      </h3>
                       <p>{project.description}</p>
                     </div>
                     <span className="project-arrow" aria-hidden="true">
@@ -266,15 +270,27 @@ export default function App() {
                       <span key={tag}>{tag}</span>
                     ))}
                   </div>
-                </a>
+                  <div className="project-links">
+                    {project.live && (
+                      <a href={project.live} target="_blank" rel="noreferrer">
+                        {project.category === "Games" ? "Play now" : "Live demo"} ↗
+                      </a>
+                    )}
+                    <a href={project.repo} target="_blank" rel="noreferrer">
+                      Source code ↗
+                    </a>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
         </section>
 
+        <GithubSection />
+
         <section className="section about" id="about">
           <Reveal className="about-side">
-            <span className="label">// 02 — about</span>
+            <span className="label">// 03 — about</span>
           </Reveal>
           <div className="about-content">
             <Reveal>
@@ -293,13 +309,13 @@ export default function App() {
               </Reveal>
               <Reveal delay={200} className="about-body">
                 <p>
-                  I work across the stack, from responsive interfaces in React and TypeScript to the
-                  APIs and databases that keep everything running. Design matters to me as much as
-                  the code behind it.
+                  I work across the stack, from responsive interfaces in React and Next.js to
+                  Node.js backends and Python desktop apps. Lately I've been building 3D browser
+                  games with Three.js, where the math actually drives the gameplay.
                 </p>
                 <p>
-                  Outside of web work, I build games and tinker with Android. I'm looking for a
-                  full-time role on a team that cares about great products.
+                  I also tinker with Android and built my own flashing tool along the way. I'm
+                  looking for a full-time role on a team that cares about great products.
                 </p>
                 <a href={`mailto:${EMAIL}?subject=Let's work together`} className="text-link">
                   Let's work together <Arrow />
@@ -350,7 +366,7 @@ export default function App() {
 
         <section className="section services">
           <Reveal>
-            <span className="label">// 04 — what I do</span>
+            <span className="label">// 05 — what I do</span>
           </Reveal>
           <div className="services-list">
             {services.map(([number, title, detail], index) => (
@@ -369,7 +385,7 @@ export default function App() {
         <section className="contact" id="contact" onPointerMove={trackPointer}>
           <div className="hero-glow" aria-hidden="true" />
           <Reveal>
-            <span className="label">// 05 — contact</span>
+            <span className="label">// 06 — contact</span>
             <p className="contact-kicker">Have a role or project in mind?</p>
           </Reveal>
           <Reveal delay={100}>

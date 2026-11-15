@@ -124,7 +124,7 @@ export function AndroidLab() {
     <section className="section lab" id="android">
       <div className="lab-copy">
         <Reveal>
-          <span className="label">// 03 — android lab</span>
+          <span className="label">// 04 — android lab</span>
           <h2>
             I got curious by
             <br />
