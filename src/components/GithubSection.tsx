@@ -237,8 +237,8 @@ export function GithubSection() {
         </Reveal>
         <Reveal delay={120} className="github-intro">
           <p>
-            The repos I&apos;m proudest of, plus every commit and late-night push, pulled live
-            from GitHub.
+            The repos I&apos;m proudest of, plus every commit and late-night push, pulled live from
+            GitHub.
           </p>
           <span className={`sync-status sync-${status}`}>
             <span className="dot" />
