@@ -26,14 +26,13 @@ const repoUrl = (name: string) => `${GITHUB}/${name}`;
 export const projects: Project[] = [
   {
     number: "01",
-    title: "Ashen Tangent",
-    category: "Games",
+    title: "FlashDock",
+    category: "Software",
     description:
-      "A playable 3D dark-fantasy action RPG for desktop and mobile browsers, where trig derivatives drive boss barriers, spell speed, and counter-attacks.",
-    tags: ["Three.js", "TypeScript", "Vite"],
-    repo: repoUrl("biundless"),
-    live: "https://ashentangent.vercel.app",
-    visual: "ashen",
+      "My own Windows workstation for Android devices: diagnostics, rooting, firmware flashing, and partition backups, with safety checks before every write.",
+    tags: ["Python", "PySide6", "ADB", "Fastboot"],
+    repo: repoUrl("own-flasher"),
+    visual: "flashdock",
   },
   {
     number: "02",
@@ -48,38 +47,6 @@ export const projects: Project[] = [
   },
   {
     number: "03",
-    title: "FlashDock",
-    category: "Software",
-    description:
-      "My own Windows workstation for Android devices: diagnostics, rooting, firmware flashing, and partition backups, with safety checks before every write.",
-    tags: ["Python", "PySide6", "ADB", "Fastboot"],
-    repo: repoUrl("own-flasher"),
-    visual: "flashdock",
-  },
-  {
-    number: "04",
-    title: "The Three Ancient Seals",
-    category: "Games",
-    description:
-      "A third-person 3D action RPG where calculus models drive dungeon mechanisms, harmonic traps, and ancient boss wards.",
-    tags: ["Three.js", "TypeScript", "WebGL"],
-    repo: repoUrl("The-Three-Ancient-Seals"),
-    live: "https://the-three-ancient-seals.vercel.app",
-    visual: "seals",
-  },
-  {
-    number: "05",
-    title: "Cyber-Rail Defender",
-    category: "Games",
-    description:
-      "A five-sector browser game: repair the railway with one-sided limits and time plasma shots with trig derivatives.",
-    tags: ["TypeScript", "Vite", "Touch controls"],
-    repo: repoUrl("RAIL"),
-    live: "https://rail-puce.vercel.app",
-    visual: "rail",
-  },
-  {
-    number: "06",
     title: "Throw Food 3D",
     category: "Games",
     description:
@@ -89,6 +56,37 @@ export const projects: Project[] = [
     live: "https://throw-brooo.vercel.app",
     visual: "voxel",
   },
+  {
+    number: "04",
+    title: "Ashen Tangent",
+    category: "Games",
+    description:
+      "A playable 3D dark-fantasy action RPG for desktop and mobile browsers, where trig derivatives drive boss barriers, spell speed, and counter-attacks.",
+    tags: ["Three.js", "TypeScript", "Vite"],
+    repo: repoUrl("biundless"),
+    live: "https://ashentangent.vercel.app",
+    visual: "ashen",
+  },
+  {
+    number: "05",
+    title: "The Three Ancient Seals",
+    category: "Games",
+    description:
+      "A third-person 3D action RPG where calculus models drive dungeon mechanisms, harmonic traps, and ancient boss wards.",
+    tags: ["Three.js", "TypeScript", "WebGL"],
+    repo: repoUrl("The-Three-Ancient-Seals"),
+    live: "https://the-three-ancient-seals.vercel.app",
+    visual: "seals",
+  },
+];
+
+/** Repos shown in the GitHub section, in display order. */
+export const featuredRepos = [
+  "own-flasher",
+  "bratzify",
+  "throw-brooo",
+  "biundless",
+  "The-Three-Ancient-Seals",
 ];
 
 /** Friendly names and summaries for repos that don't have a GitHub description. */

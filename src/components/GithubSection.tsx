@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from "react";
-import { repoNotes } from "../data";
+import { featuredRepos, repoNotes } from "../data";
 import {
   GITHUB_USER,
   LANGUAGE_COLORS,
@@ -15,7 +15,6 @@ import { prefersReducedMotion } from "./motion";
 import { Reveal, useInView } from "./Reveal";
 
 const PROFILE = `https://github.com/${GITHUB_USER}`;
-const INITIAL_REPOS = 6;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const dayFormat = new Intl.DateTimeFormat("en-US", {
@@ -192,7 +191,6 @@ function RepoIcon() {
 export function GithubSection() {
   const [data, setData] = useState<GithubData>(SNAPSHOT);
   const [status, setStatus] = useState<"loading" | "live" | "snapshot">("loading");
-  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -209,7 +207,10 @@ export function GithubSection() {
   const total = data.contributions.reduce((sum, day) => sum + day.count, 0);
   const { longest } = getStreaks(data.contributions);
   const topLanguage = getTopLanguage(data.repos);
-  const repos = showAll ? data.repos : data.repos.slice(0, INITIAL_REPOS);
+  const repos = featuredRepos.flatMap((name) => {
+    const repo = data.repos.find((item) => item.name === name);
+    return repo ? [repo] : [];
+  });
 
   const stats = [
     { value: total, label: "contributions in the last year" },
@@ -235,7 +236,10 @@ export function GithubSection() {
           </h2>
         </Reveal>
         <Reveal delay={120} className="github-intro">
-          <p>Every repo, commit, and late-night push, pulled straight from my GitHub profile.</p>
+          <p>
+            The repos I&apos;m proudest of, plus every commit and late-night push, pulled live
+            from GitHub.
+          </p>
           <span className={`sync-status sync-${status}`}>
             <span className="dot" />
             {statusText}
@@ -274,9 +278,9 @@ export function GithubSection() {
       </Reveal>
 
       <div className="repos-head">
-        <h3 className="list-title">Repositories</h3>
+        <h3 className="list-title">Featured repositories</h3>
         <span>
-          {repos.length} / {data.repos.length}
+          {repos.length} featured · {data.repos.length} public
         </span>
       </div>
 
@@ -318,22 +322,13 @@ export function GithubSection() {
       </div>
 
       <div className="repos-actions">
-        {data.repos.length > INITIAL_REPOS && (
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => setShowAll((value) => !value)}
-          >
-            {showAll ? "Show fewer" : `Show all ${data.repos.length} repositories`}
-          </button>
-        )}
         <a
           className="btn btn-ghost"
           href={`${PROFILE}?tab=repositories`}
           target="_blank"
           rel="noreferrer"
         >
-          View on GitHub ↗
+          View all repositories ↗
         </a>
       </div>
     </section>
