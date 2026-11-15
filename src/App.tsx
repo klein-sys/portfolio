@@ -1,47 +1,79 @@
 import { useState } from "react";
 
+const EMAIL = "markjeremymarcellana@gmail.com";
+const GITHUB = "https://github.com/klein-sys";
+
+type Category = "Web" | "Software" | "Games";
+
 type Project = {
   number: string;
   title: string;
-  category: "Branding" | "Digital" | "Editorial";
+  category: Category;
   description: string;
   tags: string[];
-  visual: string;
+  visual: "dashboard" | "pixel" | "system" | "terminal";
 };
 
 const projects: Project[] = [
   {
     number: "01",
-    title: "Forma",
-    category: "Branding",
-    description: "Identidad para un estudio de arquitectura que convierte ideas en espacios.",
-    tags: ["Dirección de arte", "Identidad", "2024"],
-    visual: "forma",
+    title: "Pulse",
+    category: "Web",
+    description:
+      "A real-time analytics dashboard that turns messy product data into clear decisions.",
+    tags: ["React", "Node.js", "PostgreSQL", "2025"],
+    visual: "dashboard",
   },
   {
     number: "02",
-    title: "Nómada",
-    category: "Digital",
-    description: "Una plataforma editorial para descubrir destinos desde otra perspectiva.",
-    tags: ["UX/UI", "Desarrollo", "2024"],
-    visual: "nomada",
+    title: "Pixel Drift",
+    category: "Games",
+    description: "A fast-paced retro arcade game built for the browser, with handcrafted levels.",
+    tags: ["TypeScript", "Canvas", "Game design", "2025"],
+    visual: "pixel",
   },
   {
     number: "03",
-    title: "Materia",
-    category: "Editorial",
-    description: "Diseño y narrativa para una publicación dedicada a los nuevos oficios.",
-    tags: ["Editorial", "Fotografía", "2023"],
-    visual: "materia",
+    title: "Atlas UI",
+    category: "Web",
+    description:
+      "An accessible component library and design system for shipping consistent interfaces.",
+    tags: ["React", "Tailwind", "Storybook", "2024"],
+    visual: "system",
   },
   {
     number: "04",
-    title: "Savia",
-    category: "Branding",
-    description: "Un sistema de marca vivo para una nueva generación de bienestar.",
-    tags: ["Estrategia", "Packaging", "2023"],
-    visual: "savia",
+    title: "Devnote",
+    category: "Software",
+    description:
+      "A keyboard-first notes and snippets tool for developers who live in the terminal.",
+    tags: ["Electron", "TypeScript", "SQLite", "2024"],
+    visual: "terminal",
   },
+];
+
+const services = [
+  ["01", "Frontend engineering", "React / TypeScript / Performance"],
+  ["02", "Full-stack products", "APIs / Databases / Deployment"],
+  ["03", "Web design", "UI / UX / Responsive layouts"],
+  ["04", "Game development", "Gameplay / Prototyping / Web games"],
+];
+
+const stack = [
+  ["Frontend", ["React", "TypeScript", "Next.js", "Tailwind CSS", "HTML & CSS"]],
+  ["Backend", ["Node.js", "Express", "REST APIs", "PostgreSQL", "MongoDB"]],
+  ["Games & Tools", ["Unity", "C#", "Canvas API", "Git", "Figma"]],
+] as const;
+
+const sprite = [
+  "..x.....x..",
+  "...x...x...",
+  "..xxxxxxx..",
+  ".xxoxxxoxx.",
+  "xxxxxxxxxxx",
+  "x.xxxxxxx.x",
+  "x.x.....x.x",
+  "...xx.xx...",
 ];
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
@@ -57,115 +89,134 @@ const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   </svg>
 );
 
-function ProjectArtwork({ type }: { type: string }) {
-  if (type === "forma") {
+function ProjectArtwork({ type }: { type: Project["visual"] }) {
+  if (type === "dashboard") {
     return (
-      <div className="artwork artwork-forma" aria-hidden="true">
-        <div className="forma-word">F</div>
-        <div className="forma-circle" />
-        <span>ESTUDIO / 24</span>
-      </div>
-    );
-  }
-
-  if (type === "nomada") {
-    return (
-      <div className="artwork artwork-nomada" aria-hidden="true">
-        <div className="nomada-orbit nomada-orbit-one" />
-        <div className="nomada-orbit nomada-orbit-two" />
-        <div className="nomada-label">NÓMADA</div>
-        <div className="nomada-coordinate">
-          40.4168° N<br />
-          3.7038° W
+      <div className="artwork artwork-dashboard" aria-hidden="true">
+        <span className="art-label">Live metrics</span>
+        <div className="dash-panel">
+          <small>Active users</small>
+          <strong>24,816</strong>
+          <div className="dash-bars">
+            {[38, 56, 44, 70, 92, 64, 78].map((height, index) => (
+              <span key={index} style={{ height: `${height}%` }} />
+            ))}
+          </div>
         </div>
       </div>
     );
   }
 
-  if (type === "materia") {
+  if (type === "pixel") {
     return (
-      <div className="artwork artwork-materia" aria-hidden="true">
-        <div className="materia-grid" />
-        <div className="materia-m">M</div>
-        <div className="materia-copy">
-          NUEVOS
-          <br />
-          OFICIOS
+      <div className="artwork artwork-pixel" aria-hidden="true">
+        <span className="art-label">Player 01</span>
+        <div className="pixel-sprite">
+          {sprite.flatMap((row, y) =>
+            row
+              .split("")
+              .map((cell, x) => (
+                <span
+                  key={`${x}-${y}`}
+                  className={cell === "x" ? "on" : cell === "o" ? "eye" : ""}
+                />
+              )),
+          )}
         </div>
+        <span className="pixel-score">Score 009,420</span>
+      </div>
+    );
+  }
+
+  if (type === "system") {
+    return (
+      <div className="artwork artwork-system" aria-hidden="true">
+        <div className="system-grid" />
+        <span className="art-label">Components / v2.0</span>
+        <div className="system-stack">
+          <div className="system-button">Get started</div>
+          <div className="system-input">you@example.com</div>
+          <div className="system-toggle" />
+        </div>
+        <div className="system-aa">Aa</div>
       </div>
     );
   }
 
   return (
-    <div className="artwork artwork-savia" aria-hidden="true">
-      <div className="savia-leaf savia-leaf-one" />
-      <div className="savia-leaf savia-leaf-two" />
-      <div className="savia-leaf savia-leaf-three" />
-      <div className="savia-name">SAVIA</div>
+    <div className="artwork artwork-terminal" aria-hidden="true">
+      <span className="art-label">~/devnote</span>
+      <div className="terminal-window">
+        <div>
+          <em>$</em> devnote new "deploy checklist"
+        </div>
+        <div>✓ Note saved in 12ms</div>
+        <div>
+          <em>$</em> devnote search api
+          <span className="terminal-cursor" />
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function App() {
-  const [filter, setFilter] = useState("Todos");
+  const [filter, setFilter] = useState<"All" | Category>("All");
   const [menuOpen, setMenuOpen] = useState(false);
-  const filters = ["Todos", "Branding", "Digital", "Editorial"];
+  const filters = ["All", "Web", "Software", "Games"] as const;
   const visibleProjects =
-    filter === "Todos" ? projects : projects.filter((project) => project.category === filter);
+    filter === "All" ? projects : projects.filter((project) => project.category === filter);
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <main>
       <header className="site-header">
-        <a href="#inicio" className="logo" aria-label="Irene Marín, inicio">
-          IM<span>®</span>
+        <a href="#home" className="logo" aria-label="Mark Jeremy Marcellana, home">
+          MJM<span>®</span>
         </a>
-        <nav
-          className={menuOpen ? "nav-links nav-open" : "nav-links"}
-          aria-label="Navegación principal"
-        >
-          <a href="#proyectos" onClick={closeMenu}>
-            Proyectos
+        <nav className={menuOpen ? "nav-links nav-open" : "nav-links"} aria-label="Main navigation">
+          <a href="#work" onClick={closeMenu}>
+            Work
           </a>
-          <a href="#perfil" onClick={closeMenu}>
-            Perfil
+          <a href="#about" onClick={closeMenu}>
+            About
           </a>
-          <a href="#contacto" onClick={closeMenu}>
-            Contacto
+          <a href="#contact" onClick={closeMenu}>
+            Contact
           </a>
         </nav>
-        <a className="availability" href="mailto:hola@irenemarin.studio">
+        <a className="availability" href={`mailto:${EMAIL}`}>
           <span />
-          Disponible para proyectos
+          Open to full-time roles
         </a>
         <button
           className="menu-button"
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
           aria-expanded={menuOpen}
-          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           <span />
           <span />
         </button>
       </header>
 
-      <section className="hero" id="inicio">
-        <div className="eyebrow">Diseñadora & directora de arte — Madrid</div>
+      <section className="hero" id="home">
+        <div className="eyebrow">Mark Jeremy Marcellana — Full-stack developer — Philippines</div>
         <h1>
-          Ideas que se
+          Code that
           <br />
           <span className="hero-indent">
-            pueden <i>tocar.</i>
+            feels <i>alive.</i>
           </span>
         </h1>
         <div className="hero-bottom">
           <p>
-            Creo identidades, experiencias digitales y universos visuales para marcas con algo que
-            decir.
+            I design and build fast web apps, thoughtful interfaces, and playful games, from the
+            first pixel to production.
           </p>
-          <a href="#proyectos" className="circle-link" aria-label="Ver proyectos">
+          <a href="#work" className="circle-link" aria-label="View work">
             <Arrow />
           </a>
         </div>
@@ -174,29 +225,30 @@ export default function App() {
         </div>
       </section>
 
-      <section className="projects-section" id="proyectos">
+      <section className="projects-section" id="work">
         <div className="section-heading">
           <div>
             <span className="section-number">(01)</span>
             <h2>
-              Proyectos
+              Selected
               <br />
-              seleccionados
+              work
             </h2>
           </div>
           <p>
-            Una selección de trabajos recientes construidos desde la estrategia, la curiosidad y el
-            detalle.
+            A mix of web apps, software tools, and games. Each one was built with care for how it
+            looks, feels, and performs.
           </p>
         </div>
 
-        <div className="filters" aria-label="Filtrar proyectos">
+        <div className="filters" aria-label="Filter projects">
           {filters.map((item) => (
             <button
               type="button"
               key={item}
               className={filter === item ? "active" : ""}
               onClick={() => setFilter(item)}
+              aria-pressed={filter === item}
             >
               {item}
             </button>
@@ -205,7 +257,14 @@ export default function App() {
 
         <div className="projects-grid">
           {visibleProjects.map((project) => (
-            <article className="project-card" key={project.title}>
+            <a
+              className="project-card block"
+              key={project.title}
+              href={GITHUB}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${project.title}, view on GitHub`}
+            >
               <div className="project-visual">
                 <ProjectArtwork type={project.visual} />
                 <span className="project-number">{project.number}</span>
@@ -225,44 +284,55 @@ export default function App() {
                   <span key={tag}>{tag}</span>
                 ))}
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
 
-      <section className="profile-section" id="perfil">
+      <section className="profile-section" id="about">
         <div className="profile-title">
           <span className="section-number">(02)</span>
-          <p>Perfil</p>
+          <p>About</p>
         </div>
         <div className="profile-content">
           <h2>
-            Diseño para hacer
+            Building the web
             <br />
-            visible lo <i>esencial.</i>
+            with <i>intent.</i>
           </h2>
           <div className="profile-columns">
             <p className="profile-intro">
-              Soy Irene, diseñadora independiente especializada en construir marcas claras,
-              relevantes y llenas de intención.
+              I'm Mark, a full-stack and frontend developer from the Philippines who loves turning
+              ideas into polished, working products.
             </p>
             <div className="profile-body">
               <p>
-                Trabajo en la intersección entre estrategia y expresión visual. Me interesa entender
-                el porqué antes de decidir el cómo, creando sistemas que funcionan y, sobre todo,
-                conectan.
+                I work across the stack, from crafting responsive interfaces in React and TypeScript
+                to building APIs and databases that keep everything running. Design matters to me as
+                much as the code behind it.
               </p>
               <p>
-                Colaboro con estudios, agencias y equipos de todo el mundo desde mi espacio en
-                Madrid.
+                Outside of web work, I build games and experiment with interactive ideas. I'm
+                looking for a full-time role on a team that cares about great products.
               </p>
-              <a
-                href="mailto:hola@irenemarin.studio?subject=Cuéntame sobre tu proyecto"
-                className="text-link"
-              >
-                Cuéntame tu proyecto <Arrow />
+              <a href={`mailto:${EMAIL}?subject=Let's work together`} className="text-link">
+                Let's work together <Arrow />
               </a>
             </div>
+          </div>
+
+          <div className="stack">
+            <span className="section-number">Tech stack</span>
+            {stack.map(([group, items]) => (
+              <div className="stack-group" key={group}>
+                <h3>{group}</h3>
+                <ul>
+                  {items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -270,14 +340,10 @@ export default function App() {
       <section className="services-section">
         <div className="services-heading">
           <span className="section-number">(03)</span>
-          <p>Lo que hago</p>
+          <p>What I do</p>
         </div>
         <div className="services-list">
-          {[
-            ["01", "Estrategia de marca", "Posicionamiento / Narrativa / Arquitectura"],
-            ["02", "Identidad visual", "Dirección de arte / Diseño / Sistemas"],
-            ["03", "Experiencias digitales", "UX/UI / Web / Dirección creativa"],
-          ].map(([number, title, detail]) => (
+          {services.map(([number, title, detail]) => (
             <div className="service-row" key={number}>
               <span>{number}</span>
               <h3>{title}</h3>
@@ -288,22 +354,16 @@ export default function App() {
         </div>
       </section>
 
-      <section className="contact-section" id="contacto">
-        <p className="contact-kicker">¿Tienes una idea en mente?</p>
-        <a href="mailto:hola@irenemarin.studio" className="contact-title">
-          Hablemos<span>.</span>
+      <section className="contact-section" id="contact">
+        <p className="contact-kicker">Have a role or project in mind?</p>
+        <a href={`mailto:${EMAIL}`} className="contact-title">
+          Let's talk<span>.</span>
         </a>
         <div className="contact-details">
-          <a href="mailto:hola@irenemarin.studio">hola@irenemarin.studio</a>
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
           <div>
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-            <a href="https://www.behance.net" target="_blank" rel="noreferrer">
-              Behance
+            <a href={GITHUB} target="_blank" rel="noreferrer">
+              GitHub / klein-sys
             </a>
           </div>
         </div>
@@ -311,10 +371,10 @@ export default function App() {
 
       <footer>
         <div className="logo">
-          IM<span>®</span>
+          MJM<span>®</span>
         </div>
-        <p>© 2025 — Todos los derechos reservados</p>
-        <a href="#inicio">Volver arriba ↑</a>
+        <p>© {new Date().getFullYear()} Mark Jeremy Marcellana</p>
+        <a href="#home">Back to top ↑</a>
       </footer>
     </main>
   );
