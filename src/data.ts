@@ -153,8 +153,9 @@ export const stack = [
   ["desktop", ["Python", "PySide6", "PyInstaller"]],
   ["android", ["ADB", "Fastboot", "Magisk", "KernelSU", "TWRP"]],
   ["deploy", ["Git", "GitHub", "Vercel", "Render"]],
-  ["ai_tools", ["Gemini / Antigravity", "ChatGPT / Codex", "Claude"]],
 ] as const;
+
+export const aiTools = ["Gemini / Antigravity", "ChatGPT / Codex", "Claude"] as const;
 
 export const marquee = [
   "React",

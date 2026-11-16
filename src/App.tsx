@@ -6,7 +6,17 @@ import { ProjectArtwork } from "./components/ProjectArtwork";
 import { Reveal } from "./components/Reveal";
 import { ScrambleText, Typewriter } from "./components/TextEffects";
 import { prefersReducedMotion, trackPointer } from "./components/motion";
-import { EMAIL, GITHUB, marquee, projects, roles, services, stack, type Category } from "./data";
+import {
+  EMAIL,
+  GITHUB,
+  aiTools,
+  marquee,
+  projects,
+  roles,
+  services,
+  stack,
+  type Category,
+} from "./data";
 
 const NAV = [
   ["01", "work", "#work"],
@@ -300,6 +310,15 @@ export default function App() {
                 with <em>intent.</em>
               </h2>
             </Reveal>
+            <section className="ai-skills" id="ai-skills" aria-labelledby="ai-skills-title">
+              <h3 id="ai-skills-title">AI skills</h3>
+              <ul role="list">
+                {aiTools.map((tool) => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
+            </section>
+
             <div className="about-columns">
               <Reveal delay={100}>
                 <p className="about-intro">

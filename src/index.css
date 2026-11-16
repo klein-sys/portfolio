@@ -1883,6 +1883,35 @@ h2 em {
   margin-top: 0;
 }
 
+.ai-skills {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  margin-top: clamp(1.75rem, 4vw, 3rem);
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.ai-skills h3 {
+  color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.ai-skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ai-skills li {
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.65rem;
+}
+
 .about-columns {
   display: grid;
   gap: 10%;
